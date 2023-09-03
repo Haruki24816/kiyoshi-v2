@@ -7,6 +7,7 @@ import time
 import traceback
 import asyncio
 from generate_voice import generate_voice
+from keep_alive import keep_alive
 
 
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
@@ -170,4 +171,5 @@ async def request_sekiguchi(command):
     return data
 
 
+keep_alive()
 bot.run(DISCORD_TOKEN)
