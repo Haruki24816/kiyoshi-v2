@@ -6,6 +6,7 @@ import os
 import time
 import traceback
 import asyncio
+from generate_voice import generate_voice
 
 
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
@@ -13,10 +14,11 @@ SEKIGUCHI_TOKEN = os.getenv("SEKIGUCHI_TOKEN")
 SCHEME = "https://"
 DOMAIN = os.getenv("SEKIGUCHI_DOMAIN")
 MAC_ADDRESS = os.getenv("SEKIGUCHI_MAC_ADDRESS")
+COMMAND_PREFIX = "！"
 
 
 intents = discord.Intents.all()
-bot = commands.Bot(command_prefix="！", intents=intents) # 全角感嘆符
+bot = commands.Bot(command_prefix=COMMAND_PREFIX, intents=intents) # 全角感嘆符
 
 
 @bot.command(name="リスト")
@@ -122,6 +124,25 @@ async def status(ctx):
         return
 
     await ctx.send(f"```{str(data)}```")
+
+
+@bot.command(name="入室")
+async def join_vc(ctx):
+    await ctx.author.voice.channel.connect()
+
+
+@bot.command(name="退室")
+async def leave_vc(ctx):
+    await ctx.voice_client.disconnect()
+
+
+@bot.event
+async def on_message(message):
+    if message.guild.voice_client is not None and COMMAND_PREFIX not in message.content:
+        generate_voice(message.content)
+        message.guild.voice_client.play(discord.FFmpegPCMAudio("voice.mp3"))
+
+    await bot.process_commands(message)
 
 
 async def request_sekiguchi(command):
