@@ -137,6 +137,11 @@ async def leave_vc(ctx):
     await ctx.voice_client.disconnect()
 
 
+@bot.command(name="あけおめ")
+async def akeome(ctx):
+    await ctx.send("あけおめ")
+
+
 @bot.event
 async def on_message(message):
     if message.guild.voice_client is not None and COMMAND_PREFIX not in message.content:
