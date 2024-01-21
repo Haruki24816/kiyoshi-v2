@@ -142,6 +142,54 @@ async def akeome(ctx):
     await ctx.send("あけおめ")
 
 
+@bot.command(name="リセット")
+async def reset(ctx):
+    await ctx.send("通信中")
+    data = await request_sekiguchi("reset")
+
+    if data == False:
+        await ctx.send("通信に失敗しました")
+        return
+
+    await ctx.send(f"```{str(data)}```")
+
+
+@bot.command(name="メンテ")
+async def maint(ctx):
+    await ctx.send("通信中")
+    data = await request_sekiguchi("maint")
+
+    if data == False:
+        await ctx.send("通信に失敗しました")
+        return
+
+    await ctx.send(f"```{str(data)}```")
+
+
+@bot.command(name="自動停止有効")
+async def enable_autostop(ctx):
+    await ctx.send("通信中")
+    data = await request_sekiguchi("enable_autostop")
+
+    if data == False:
+        await ctx.send("通信に失敗しました")
+        return
+
+    await ctx.send(f"```{str(data)}```")
+
+
+@bot.command(name="自動停止無効")
+async def disable_autostop(ctx):
+    await ctx.send("通信中")
+    data = await request_sekiguchi("disable_autostop")
+
+    if data == False:
+        await ctx.send("通信に失敗しました")
+        return
+
+    await ctx.send(f"```{str(data)}```")
+
+
 @bot.event
 async def on_message(message):
     if message.guild.voice_client is not None and COMMAND_PREFIX not in message.content:
