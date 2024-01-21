@@ -30,13 +30,38 @@ async def serverlist(ctx):
     if data == False:
         await ctx.send("通信に失敗しました")
         return
+    
+    current_guild_id = ctx.guild.id
 
-    text = ""
-
+    text = "**Java版**\n"
     for name in data.keys():
+        if data[name]["edition"] == "bedrock":
+            continue
+        if current_guild_id != int(data[name]["guild_id"]):
+            continue
+        text += name + "\n"
+    
+    text += "\n**統合版**\n"
+    for name in data.keys():
+        if data[name]["edition"] == "java":
+            continue
+        if current_guild_id != int(data[name]["guild_id"]):
+            continue
         text += name + "\n"
 
     await ctx.send(text)
+
+
+@bot.command(name="管理用リスト")
+async def serverlist_for_manage(ctx):
+    await ctx.send("通信中")
+    data = await request_sekiguchi("serverlist")
+
+    if data == False:
+        await ctx.send("通信に失敗しました")
+        return
+
+    await ctx.send(f"```{str(data)}```")
 
 
 @bot.command(name="起動")
