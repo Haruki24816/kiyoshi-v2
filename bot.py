@@ -249,5 +249,5 @@ async def request_sekiguchi(command):
     return data
 
 
-keep_alive()
+#keep_alive()
 bot.run(DISCORD_TOKEN)
