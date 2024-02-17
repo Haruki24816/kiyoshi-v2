@@ -162,14 +162,10 @@ async def leave_vc(ctx):
     await ctx.voice_client.disconnect()
 
 
-@bot.command(name="あけおめ")
-async def akeome(ctx):
-    await ctx.send("あけおめ")
-
-
-@bot.command(name="許さない")
-async def yurusanai(ctx):
-    await ctx.send("許さない")
+@bot.command(name="オウム")
+async def oumu(ctx, text):
+    await ctx.send(text)
+    await ctx.message.delete()
 
 
 @bot.command(name="リセット")
