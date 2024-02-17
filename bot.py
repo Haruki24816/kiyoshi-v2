@@ -167,6 +167,11 @@ async def akeome(ctx):
     await ctx.send("あけおめ")
 
 
+@bot.command(name="許さない")
+async def yurusanai(ctx):
+    await ctx.send("許さない")
+
+
 @bot.command(name="リセット")
 async def reset(ctx):
     await ctx.send("通信中")
