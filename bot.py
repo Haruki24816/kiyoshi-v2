@@ -216,6 +216,12 @@ async def disable_autostop(ctx):
     await ctx.send(f"```{str(data)}```")
 
 
+@bot.command(name="おわり")
+async def owari(ctx):
+    if ctx.guild.voice_client is not None:
+        ctx.guild.voice_client.play(discord.FFmpegPCMAudio("owari.mp3"))
+
+
 @bot.event
 async def on_message(message):
     if message.guild.voice_client is not None and COMMAND_PREFIX not in message.content:
