@@ -8,6 +8,7 @@ import traceback
 import asyncio
 from generate_voice import generate_voice
 from keep_alive import keep_alive
+import socket
 
 
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
@@ -111,6 +112,7 @@ async def start(ctx, name):
 エディション：{edition}
 バージョン：{version}
 アドレス：{DOMAIN}
+IPアドレス：{socket.gethostbyname(DOMAIN)}
     """)
 
     while True:
